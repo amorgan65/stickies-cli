@@ -9,24 +9,33 @@ class Note:
     def __init__(self, content, sticky_color):
         self.sticky_color = sticky_color
         self.content = content
+        self.tag = getID()
              
-        #TODO give this note an identifying note ID
-        #save the sticky notes ID here?
+    def getID():
+        return file_length + 1 # TODO fix this?? make sure file_length is being recalculated each time?
 
         # save this note in some data structure (hash map??)
 
-
 def create_sticky(text, color):
-    #create square with |_-?
+    new_sticky = Note(text, color)
+    all_notes.append(new_sticky)
+    notes_file.write(str(file_length) + ': ' + str(text))
+
+def print_square(Note):
     #   _______________
     #  |1              |
     #  |               |
     #  |     NOTE      |
     #  |               |
     #  |_______________|
-    new_sticky = Note(text, color)
-    all_notes.append(new_sticky)
-    notes_file.write(str(file_length) + ': ' + str(text))
+
+    print('note id is: ' + Note.tag)
+    print('note content is: ' + Note.content)
+
+def print_all():
+    with open('notes.txt') as note_f:
+        for line in note_f:
+            # parse text, id = line[0], text = line[1:]
 
 # Delete sticky note associated with a given ID (shown in top left of note)
 def delete_sticky(sticky_id):
@@ -38,9 +47,15 @@ def delete_sticky(sticky_id):
     
    # print('delete note with id ' + sticky_id)
 
+def delete_all():
+    #TODO delete all sticky notes
+    with open('notes.txt') as note_f:
+        for line in note_f:
+            print('.')
+            #TODO delete current line given by line
+
 def print_notes():
     # loop through all notes:
-
     # for each loop, print it on the terminal,
     # for each note, check color property, use ANSI tag when printing?
     # https://sparkbyexamples.com/python/print-colored-text-to-the-terminal-in-python/
@@ -48,9 +63,27 @@ def print_notes():
         for line in note_f:
             print(line)
 
-
 def update_sticky(sticky_id, new_text):
     #get the note associated with this ID
     #set current content to null, replace it with 
     print('update sticky note with id ' + sticky_id + ' to have new text: ' + new_text)
 
+# Utility Functions #
+
+def split_line(text):
+    noteID = text[0]
+    noteText = text[1:] # TODO split up, get rid of the ': '???
+    # TODO return list with noteID as first element
+
+# With parameter file_name, create data structure and store file's data into it
+def get_file_data(file_name)
+    result = {}
+    with open('notes.txt') as note_f:
+        for line in note_f:
+            separated = split_line(line)
+            thisID = separated[0]
+            text = separated[1:] #TODO account for the colon in between, separating id and text
+
+    return result
+
+def 
