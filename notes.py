@@ -9,17 +9,18 @@ class Note:
     def __init__(self, content, sticky_color):
         self.sticky_color = sticky_color
         self.content = content
-        self.tag = getID()
+    #    self.tag = getID()
              
-    def getID():
-        return file_length + 1 # TODO fix this?? make sure file_length is being recalculated each time?
+  #  def getID():
+    #    return file_length + 1 # TODO fix this?? make sure file_length is being recalculated each time?
 
         # save this note in some data structure (hash map??)
 
 def create_sticky(text, color):
     new_sticky = Note(text, color)
     all_notes.append(new_sticky)
-    notes_file.write(str(file_length) + ': ' + str(text))
+    this_id = get_num_lines('notes.txt')
+    notes_file.write(str(this_id) + ': ' + str(text) + "\n")
 
 def print_square(Note):
     #   _______________
@@ -32,9 +33,9 @@ def print_square(Note):
     print('note id is: ' + Note.tag)
     print('note content is: ' + Note.content)
 
-def print_all():
-    with open('notes.txt') as note_f:
-        for line in note_f:
+#def print_all():
+   # with open('notes.txt') as note_f:
+      #  for line in note_f:
             # parse text, id = line[0], text = line[1:]
 
 # Delete sticky note associated with a given ID (shown in top left of note)
@@ -76,9 +77,9 @@ def split_line(text):
     # TODO return list with noteID as first element
 
 # With parameter file_name, create data structure and store file's data into it
-def get_file_data(file_name)
+def get_file_data(file_name):
     result = {}
-    with open('notes.txt') as note_f:
+    with open(file_name) as note_f:
         for line in note_f:
             separated = split_line(line)
             thisID = separated[0]
@@ -86,4 +87,10 @@ def get_file_data(file_name)
 
     return result
 
-def 
+def get_num_lines(file_name):
+    result = 0
+    with open(file_name) as note_f:
+        for line in note_f:
+            result += 1
+
+    return result
