@@ -9,18 +9,12 @@ class Note:
     def __init__(self, content, sticky_color):
         self.sticky_color = sticky_color
         self.content = content
-    #    self.tag = getID()
-             
-  #  def getID():
-    #    return file_length + 1 # TODO fix this?? make sure file_length is being recalculated each time?
-
-        # save this note in some data structure (hash map??)
 
 def create_sticky(text, color):
     new_sticky = Note(text, color)
     all_notes.append(new_sticky)
     this_id = get_num_lines('notes.txt')
-    notes_file.write(str(this_id) + ': ' + str(text) + "\n")
+    notes_file.write(str(this_id) + ': ' + array_to_string(text) + "\n")
 
 def print_square(Note):
     #   _______________
@@ -33,11 +27,6 @@ def print_square(Note):
     print('note id is: ' + Note.tag)
     print('note content is: ' + Note.content)
 
-#def print_all():
-   # with open('notes.txt') as note_f:
-      #  for line in note_f:
-            # parse text, id = line[0], text = line[1:]
-
 # Delete sticky note associated with a given ID (shown in top left of note)
 def delete_sticky(sticky_id):
     # search data structure of all notes for the one with this ID, 
@@ -46,8 +35,6 @@ def delete_sticky(sticky_id):
         if note[0] == sticky_id:
             print('currently at sticky note that has the given id')
     
-   # print('delete note with id ' + sticky_id)
-
 def delete_all():
     #TODO delete all sticky notes
     with open('notes.txt') as note_f:
@@ -56,8 +43,6 @@ def delete_all():
             #TODO delete current line given by line
 
 def print_notes():
-    # loop through all notes:
-    # for each loop, print it on the terminal,
     # for each note, check color property, use ANSI tag when printing?
     # https://sparkbyexamples.com/python/print-colored-text-to-the-terminal-in-python/
     with open('notes.txt') as note_f:
@@ -69,7 +54,11 @@ def update_sticky(sticky_id, new_text):
     #set current content to null, replace it with 
     print('update sticky note with id ' + sticky_id + ' to have new text: ' + new_text)
 
+#####################
+#                   #
 # Utility Functions #
+#                   #
+#####################
 
 def split_line(text):
     noteID = text[0]
@@ -92,5 +81,12 @@ def get_num_lines(file_name):
     with open(file_name) as note_f:
         for line in note_f:
             result += 1
+
+    return result
+
+def array_to_string(array):
+    result = ""
+    for elem in array:
+        result += elem + " "
 
     return result
