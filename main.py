@@ -18,8 +18,11 @@ if function_name == 'new':
     notes.create_sticky(new_note, 'white')
     #TODO create new note if arguments are correct (sanitize?), also need to assign a note ID to it
 elif function_name == 'delete':
-    noteID = sys.argv[2]
-    notes.delete_sticky(noteID)
+    if len(sys.argv) == 2:
+        notes.delete_all()
+    else:
+        noteID = sys.argv[2]
+        notes.delete_sticky(noteID)
     #TODO retrieve the associated note based on the typed in noteID stored in noteID, and delete it
 elif function_name == 'print':
     notes.print_notes()

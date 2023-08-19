@@ -1,3 +1,5 @@
+import os
+
 notes_file = open('notes.txt', 'a+')
 
 line_list = notes_file.readlines()
@@ -9,6 +11,8 @@ class Note:
     def __init__(self, content, sticky_color):
         self.sticky_color = sticky_color
         self.content = content
+   #     self.tag = getID()
+  #  def getID(self):
 
 def create_sticky(text, color):
     new_sticky = Note(text, color)
@@ -29,18 +33,15 @@ def print_square(Note):
 
 # Delete sticky note associated with a given ID (shown in top left of note)
 def delete_sticky(sticky_id):
-    # search data structure of all notes for the one with this ID, 
-   # line_list = notes_file.readlines()
     for note in line_list:
         if note[0] == sticky_id:
             print('currently at sticky note that has the given id')
     
 def delete_all():
-    #TODO delete all sticky notes
-    with open('notes.txt') as note_f:
-        for line in note_f:
-            print('.')
-            #TODO delete current line given by line
+    if os.path.exists('notes.txt'):
+        os.remove('notes.txt')
+    else:
+        print("Error: file doesn't exist")
 
 def print_notes():
     # for each note, check color property, use ANSI tag when printing?
